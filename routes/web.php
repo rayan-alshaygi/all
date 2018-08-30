@@ -22,10 +22,10 @@
 });  */
 
 /* Route::get('/nafisa', function () {
-    return view('nafisa');
+    return view('test');
 }); */
-
-Route::get('/', 'PagesContoller@index');
+ 
+Route::get('/index', 'PagesContoller@index');
 
 Route::get('/test', 'PagesContoller@test');
 
@@ -33,7 +33,15 @@ Route::get('/about', 'PagesContoller@about');
 
 Route::get('/services', 'PagesContoller@services');
 
+Route::get('/calc', 'PagesContoller@showcalc');
+Route::post('/calc', 'PagesContoller@showres');
 /* Route::get('/about',function(){
     return view('pages.about');
 }); */
 
+Route::resource('students','StudentsController');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

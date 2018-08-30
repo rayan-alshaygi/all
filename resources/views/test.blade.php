@@ -8,5 +8,4 @@
         <p> hello {{$name}}</p>
 
         {{-- @isset ,,@empty --}}
-        
 @endsection
