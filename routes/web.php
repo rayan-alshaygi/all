@@ -41,6 +41,24 @@ Route::post('/calc', 'PagesContoller@showres');
 
 Route::resource('students','StudentsController');
 
+Route::get('/projects', 'ProjectController@index');
+Route::post('/projects', 'ProjectController@store');
+
+Route::get('/projects/create', 'ProjectController@create');
+
+Route::delete('/projects/{project}', 'ProjectController@destroy');
+
+Route::get('/projects/{project}', 'ProjectController@show');
+Route::put('/projects', 'ProjectController@update');
+Route::post('/projects/{project}/edit', 'ProjectController@edit');
+
+Route::get('/projects/{project}/tasks/create', 'TaskController@create');
+Route::post('/projects/tasks/create', 'TaskController@store');
+
+Route::post('/calc', 'ProjectController@showres');
+
+
+
 
 Auth::routes();
 
