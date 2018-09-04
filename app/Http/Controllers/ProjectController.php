@@ -73,9 +73,10 @@ class ProjectController extends Controller
         // to get tasks
         $tasks=Task::where('project_id',$id)->get();
         // to get responsible name
-        $responsible=DB::select('Select name from users where id='.$project->responsible);
-        dd($responsible->name);
-        return view('projects.show')->with('project',$project)->with('tasks',$tasks);
+        //$responsible=DB::select('Select name from users where id='.$project->responsible);
+        $responsiblerow=DB::table('users')->where('id', $project->responsible)->first();
+        $responsible=$responsiblerow->name;
+        return view('projects.show')->with('project',$project)->with('tasks',$tasks)->with('responsible',$responsible);
     }
 
     /**

@@ -5,7 +5,7 @@
 <p> {{$project->description}}</p>
 <p> type:{{$project->project_type}}</p>
 <p> <img height="20%" width="20%" src="{{url('/storage/cover_images/'.$project->cover_image)}}"></p>
-<p> responsible:{{$project->responsible}}</p>
+<p> responsible:{{$responsible}}</p>
 <a href="{{url('/projects/'.$project->id.'/tasks/create')}}" > Add Task </a>
 <p>Progress<p>
 @if(count($tasks) > 0)
