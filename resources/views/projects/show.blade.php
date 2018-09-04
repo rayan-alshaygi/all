@@ -18,9 +18,34 @@
 @foreach($tasks as $task)
     <tr>
     <td>{{$task->description}}</td> 
-    </tr>
-
+    @php
+    $c=false;
+    if($task->done_by ==! NULL)
+        $c=true;
+    @endphp
+    <td>{{Form::checkbox('done', '', $c,['id'=>$task->id,'onChange'=>'doubleCheck(this.id,'.$task->id.','.$task->project_id.')'])}}</td>
+    <td>{{$task->doer}}</td>
+</tr>
 @endforeach
 </table>
 @endif
+
+<script>
+    function doubleCheck(clickedid,$id,$pid) { 
+        if (document.getElementById(clickedid).checked == true) {
+            var box= confirm("Are you sure this task is done ?");
+            if (box==true)
+            {   
+                window.location.href = '@php echo URL::to('tasks/done/')@endphp/'+ $id+'/'+$pid ;
+                return true;
+            }
+            else
+               document.getElementById(clickedid).checked = false;
+          } else {
+                return false;
+          }
+        }
+    </script>
+
+
 @endsection

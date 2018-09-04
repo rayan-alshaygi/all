@@ -51,9 +51,12 @@ Route::delete('/projects/{project}', 'ProjectController@destroy');
 Route::get('/projects/{project}', 'ProjectController@show');
 Route::put('/projects', 'ProjectController@update');
 Route::post('/projects/{project}/edit', 'ProjectController@edit');
+Route::get('/tasks/done/{id}/{pid}', 'ProjectController@completeTask');
 
 Route::get('/projects/{project}/tasks/create', 'TaskController@create');
 Route::post('/projects/tasks/create', 'TaskController@store');
+
+
 
 Route::post('/calc', 'ProjectController@showres');
 

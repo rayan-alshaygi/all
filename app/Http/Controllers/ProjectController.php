@@ -72,12 +72,24 @@ class ProjectController extends Controller
         $project=Project::find($id);
         // to get tasks
         $tasks=Task::where('project_id',$id)->get();
+        $tid=1;
+        $tasks=DB::select('Select users.name AS doer,tasks.* from tasks join users on tasks.done_by=users.id
+        where tasks.project_id='.$id);
         // to get responsible name
         //$responsible=DB::select('Select name from users where id='.$project->responsible);
         $responsiblerow=DB::table('users')->where('id', $project->responsible)->first();
         $responsible=$responsiblerow->name;
         return view('projects.show')->with('project',$project)->with('tasks',$tasks)->with('responsible',$responsible);
     }
+
+    public function completeTask($id,$pid)
+    {
+        $task=Task::find($id);
+        $task->done_by=$id;
+        $task->done_date=now();
+        $task->save();
+        return $this->show($pid);
+      }
 
     /**
      * Show the form for editing the specified resource.
