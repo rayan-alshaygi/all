@@ -11,6 +11,17 @@
 {{Form::radio('type','external')}}
 {{Form::label('external','External:')}}
 {{Form::label('responsible','Responsible:')}}
-{{Form::text('responsible')}}
+@if(count($users)>0)
+{{Form::select('responsible',$users)}}
+@endif
+{{-- @php 
+if(count($users)>0){
+    $a=array(); 
+    foreach ($users as $key => $user) {
+        $a[$key]="'".$user->id"'" =>"'".$user->name."'";
+    } 
+    }
+@endphp --}}
+{{-- {{Form::text('responsible')}} --}}
 {{Form::submit('save')}}
 {{Form::close()}}

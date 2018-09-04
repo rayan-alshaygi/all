@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB; 
 use Illuminate\Http\Request;
 use App\Project;
 use App\Task;
+use App\User;
 class ProjectController extends Controller
 {
         /**
@@ -21,7 +22,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        $users=User::pluck('name','id');
+        return view('projects.create')->with('users',$users);
     }
 
     /**
@@ -49,7 +51,7 @@ class ProjectController extends Controller
             // Upload image
             $path= $request->file('cover_image')->storeAs('public/cover_images',$fileNameToStore);
         }else{
-            $fileNameToStore='noimage.png';
+            $fileNameToStore='noimage.jpg';
         }
 
         $p=new Project;
@@ -68,7 +70,11 @@ class ProjectController extends Controller
     public function show($id)
     {
         $project=Project::find($id);
+        // to get tasks
         $tasks=Task::where('project_id',$id)->get();
+        // to get responsible name
+        $responsible=DB::select('Select name from users where id='.$project->responsible);
+        dd($responsible->name);
         return view('projects.show')->with('project',$project)->with('tasks',$tasks);
     }
 
